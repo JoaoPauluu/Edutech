@@ -1,56 +1,51 @@
-import random
-import time
+from random import randint
+from time import sleep
 
-def inputPositivo(userInput):
-    if(userInput == 'sim' or userInput == 's'):
-        return True
+
+def receber_input(mensagem):
+    user_input = input(mensagem).lower()
+    if user_input == 'sim' or user_input == 's':
+        return 'sim'
+    elif user_input == 'não' or user_input == 'nao' or user_input == 'n':
+        return 'nao'
     else:
-        return False
-
-def inputNegativo(userInput):
-    if(userInput == 'nao' or userInput == 'não' or userInput == 'n'):
-        return True
-    else:
-        return False
+        return 'invalido'
 
 
+def jogar_dado():
+    print('Jogando dados...')
+    sleep(1)
+    print('O dado caiu no número: ', randint(1, 6))
+    jogar_dado_novamente()
+    return
 
-def jogarNovamente():
-    userInput = input('Deseja jogar o dado novamente? ').lower()
-    if (inputPositivo(userInput)):
-        jogarDado()
-        jogarNovamente()
+
+def jogar_dado_novamente():
+    user_input = receber_input('Você quer jogar o dado novamente? ')
+    if user_input == 'sim':
+        jogar_dado()
         return
-    elif (inputNegativo(userInput)):
+    elif user_input == 'nao':
         print('Okay :)')
         return
     else:
-        print('Resposta inválida')
-        jogarNovamente()
+        print('Argumento inválido, tente novamente')
+        jogar_dado_novamente()
         return
-
-
-def jogarDado():
-        print('Rodando dados...')
-        time.sleep(2)
-        print('O dado caiu no número: ', random.randint(1, 6))
-
 
 
 def main():
-    userInput = input('Você gostaria de jogar o dado? ').lower()
-    if(inputPositivo(userInput)):
-        jogarDado()
-        jogarNovamente()
-    elif(inputNegativo(userInput)):
+    user_input = receber_input('Você quer jogar o dado? ')
+    if user_input == 'sim':
+        jogar_dado()
+        return
+    elif user_input == 'nao':
         print('Okay :)')
         return
     else:
-        print('Responsta inválida')
+        print('Argumento inválido, tente novamente')
         main()
 
 
 if __name__ == '__main__':
     main()
-
-
